@@ -2,7 +2,7 @@ Descripció
 
 Tenim una col·lecció d'Objectes Restaurant a la ciutat de Nova York, i necessitem algunes consultes... pots ajudar-nos?
 
-db.restaurants.countDocuments()
+-- db.restaurants.countDocuments()
 
 
 
@@ -80,7 +80,7 @@ db.restaurants.find ( {"address.coord":{ $lt: -95.754168}} )
 
 11. Escriu una consulta de MongoDB per a trobar els restaurants que no preparen cap cuisine de 'American' i la seva qualificació és superior a 70 i longitud inferior a -65.754168.
 
-db.restaurants.find ( {$and: [ {  cuisine: {$not:{$regex:"American*"}}} , { "grades.score": {$gt:70}} ]} )
+db.restaurants.find ( {$and: [ {  cuisine: {$not:{$regex:"American"}}} , { "grades.score": {$gt:70}} ]} )
 
 
 
@@ -88,45 +88,45 @@ db.restaurants.find ( {$and: [ {  cuisine: {$not:{$regex:"American*"}}} , { "gra
 12. Escriu una consulta per trobar els restaurants que no preparen cap cuisine de 'American' i van aconseguir un marcador més de 70 i localitzat en la longitud menys que -65.754168. Nota: Fes aquesta consulta sense utilitzar $and operador.
 
 latitude --> address.coord.0
-db.restaurants.find( { $and: [  {  cuisine: {$not:{$regex:"American*"}}} ,{"grades.score": {$gt:70} }, {"address.coord.0":{ $lt: -65.754168}} ] } )
+db.restaurants.find( { $and: [  {  cuisine: {$not:{$regex:"American"}}} ,{"grades.score": {$gt:70} }, {"address.coord.0":{ $lt: -65.754168}} ] } )
 
 longitud --> address.coord.1
-db.restaurants.find( { $and: [  {  cuisine: {$not:{$regex:"American*"}}} ,{"grades.score": {$gt:70} }, {"address.coord.1":{ $lt: -65.754168}} ] } )
+db.restaurants.find( { $and: [  {  cuisine: {$not:{$regex:"American"}}} ,{"grades.score": {$gt:70} }, {"address.coord.1":{ $lt: -65.754168}} ] } )
 
 
 
 
 13. Escriu una consulta per trobar els restaurants que no preparen cap cuisine de 'American' i van obtenir un punt de grau 'A' no pertany a Brooklyn. S'ha de mostrar el document segons la cuisine en ordre descendent.
 
-db.restaurants.find( { $and: [  {  cuisine: {$not:{$regex:"American*"}}} ,{"grades.grade": 'A' }, {"borough":{$not:{$regex:"Brooklyn.*"}}} ] } ).sort( { "cuisine": -1 } )
+db.restaurants.find( { $and: [  {  cuisine: {$not:{$regex:"American"}}} ,{"grades.grade": 'A' }, {"borough":{$not:{$regex:"Brooklyn"}}} ] } ).sort( { "cuisine": -1 } )
 
 
 
 
 14. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que contenen 'Wil' com les tres primeres lletres en el seu nom.
 
-db.restaurants.find({ name: {$regex:"^Wil.*"}} ,{restaurant_id:1,name:1,borough:1,cuisine:1})
+db.restaurants.find({ name: {$regex:"^Wil"}} ,{restaurant_id:1,name:1,borough:1,cuisine:1})
 
 
 
 
 15. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que contenen 'ces' com les últimes tres lletres en el seu nom.
 
-db.restaurants.find({ name: {$regex:".*ces$"}} ,{restaurant_id:1,name:1,borough:1,cuisine:1})
+db.restaurants.find({ name: {$regex:"ces$"}} ,{restaurant_id:1,name:1,borough:1,cuisine:1})
 
 
 
 
 16. Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que contenen 'Reg' com tres lletres en algun lloc en el seu nom.
 
-db.restaurants.find({ name: {$regex:".*Reg.*"}} ,{restaurant_id:1,name:1,borough:1,cuisine:1})
+db.restaurants.find({ name: {$regex:"Reg"}} ,{restaurant_id:1,name:1,borough:1,cuisine:1})
 
 
 
 
 17. Escriu una consulta per trobar els restaurants que pertanyen al Bronx i van preparar qualsevol plat americà o xinès.
 
-db.restaurants.find({$and:[{borough: 'Bronx'},{$or:[{  cuisine: {$regex:"American.*"}},{  cuisine: {$regex:"Chinese.*"}}]}]})
+db.restaurants.find({$and:[{borough: 'Bronx'},{$or:[{  cuisine: {$regex:"American"}},{  cuisine: {$regex:"Chinese"}}]}]})
 
 
 
@@ -192,7 +192,7 @@ db.restaurants.find().sort({name:-1})
 
 27. Escriu una consulta per organitzar el nom de la cuisine en ordre ascendent i pel mateix barri de cuisine. Ordre descendent.
 
-db.restaurants.find().sort({cuisine:1})????
+db.restaurants.find().sort({cuisine:1, borough:-1})????
 
 
 
@@ -227,7 +227,7 @@ db.restaurants.find({ name: {$regex:"mon"}} ,{_id:0,name:1,borough:1,"address.co
 
 32. Escriu una consulta per trobar el name de restaurant, borough, longitud i latitud i cuisine per a aquells restaurants que contenen 'Mad' com primeres tres lletres del seu nom.
 
-db.restaurants.find({ name: {$regex:"^Mad.*"}} ,{_id:0,name:1,borough:1,"address.coord":1})
+db.restaurants.find({ name: {$regex:"^Mad"}} ,{_id:0,name:1,borough:1,"address.coord":1})
 
 
 
